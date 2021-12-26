@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Puzzle.Models;
 
 namespace Puzzle
@@ -7,80 +8,73 @@ namespace Puzzle
     {
         public static void Main(string[] args)
         {
-            var startingState = new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 0 };
+            var startingState = new int[] { 0, 3, 5, 6, 2, 4, 7, 8, 1 };
 
-            MakeMove(startingState);
-        }
-        private static void MakeMove(int[] gameState)
-        {
-            //find 0
-            int location = Find0(gameState);
+            Game game = new Game(startingState);
+            var depth = 0;
+            Dictionary<int[], bool> explored = new Dictionary<int[], bool>();
+            Frontier frontier = new Frontier();
+            Node nextNode = null;
+            Node final = null;
 
-            int[][] moveIndex = new int[9][];
-            moveIndex[0] = new int[] { 1, 3 };
-            moveIndex[1] = new int[] { 0, 2, 4 };
-            moveIndex[2] = new int[] { 1, 5 };
-            moveIndex[3] = new int[] { 4, 0, 6 };
-            moveIndex[4] = new int[] { 3, 5, 1, 7 };
-            moveIndex[5] = new int[] { 4, 2, 8 };
-            moveIndex[6] = new int[] { 7, 3 };
-            moveIndex[7] = new int[] { 6, 8, 4 };
-            moveIndex[8] = new int[] { 7, 5 };
+            var searchCost = 0;
 
-            PrintGameState(gameState);
-            Console.WriteLine();
-
-            var availableMoves = moveIndex[location];
-            foreach (var move in availableMoves)
+            while (!(final != null && final.totalCost < frontier.First().totalCost))
             {
-                int[] newState = SwapWithEmpty(gameState, location, move);
-                PrintGameState(newState);
-                Console.WriteLine();
-            }
-        }
-        private static int[] SwapWithEmpty(int[] gameState, int emptyTile, int index)
-        {
-            int[] newGameState = new int[9];
+                searchCost++;
+                var nextMoves = game.GetPossibleMoves();
+                foreach (var move in nextMoves)
+                {
+                    frontier.Add(new Node(nextNode, move, H1(move), depth + 1));
+                }
 
-            for (int i = 0; i < gameState.Length; i++)
-                newGameState[i] = gameState[i];
+                nextNode = frontier.Pop();
 
-            int tmp = newGameState[index];
-            newGameState[index] = newGameState[emptyTile];
-            newGameState[emptyTile] = tmp;
+                while (explored.ContainsKey(nextNode.gameState))
+                    nextNode = frontier.Pop();
 
-            return newGameState;
-        }
-        private static int Find0(int[] gameState)
-        {
-            for (int i = 0; i < gameState.Length; i++)
-            {
-                if (gameState[i] == 0)
-                    return i;
+                explored[nextNode.gameState] = true;
+                depth = nextNode.depth;
+                game.NextState(nextNode.gameState);
+
+                if (game.isFinalState)
+                {
+                    final = nextNode;
+                }
             }
 
-            return -1;
+            PrintNodes(final, startingState);
+            Console.WriteLine("Search Cost: {0}", searchCost);
         }
         private static int H1(int[] gameState)
         {
             int value = 0;
 
             for (int i = 0; i < gameState.Length; i++)
-            {
                 value += gameState[i] == i ? 0 : 1;
-            }
 
             return value;
         }
-        private static void PrintGameState(int[] gameState)
+        private static void PrintNodes(Node finalNode, int[] startingState)
         {
-            for (int i = 0; i < gameState.Length; i++)
+            Node node = finalNode;
+            Stack<Node> nodes = new Stack<Node>();
+
+            while (node != null)
             {
-                if (i != 0 && i % 3 == 0)
-                    Console.WriteLine();
-                Console.Write("{0} ", gameState[i]);
+                nodes.Push(node);
+                node = node.parent;
             }
+
+            Game.PrintGameState(startingState);
             Console.WriteLine();
+
+            var nodeCount = nodes.Count;
+            for (int i = 1; i <= nodeCount; i++)
+            {
+                Console.WriteLine("\nStep {0}:", i);
+                Game.PrintGameState(nodes.Pop().gameState);
+            }
         }
     }
 }

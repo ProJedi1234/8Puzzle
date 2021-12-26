@@ -35,6 +35,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Models\Node.cs" />
     <Compile Include="Models\Point.cs" />
+    <Compile Include="Game.cs" />
+    <Compile Include="Models\Frontier.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
