@@ -78,7 +78,7 @@ namespace Puzzle
                         total2 += item;
                     var average2 = total2 / results2[key].Count;
 
-                    csvFile += (key + "," + average1 + "," + average2 + "\n");
+                    csvFile += (key + "," + average1 + "," + average2  + "," + results1[key].Count + "\n");
                 }
 
                 System.IO.File.WriteAllText("MultiRun.csv", csvFile);
