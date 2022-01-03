@@ -5,6 +5,8 @@ VisualStudioVersion = 16.0.810.14
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "8Puzzle", "8Puzzle\8Puzzle.csproj", "{747D2677-F1CD-4310-A6D5-7B041BAF4B3C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReadFiles", "ReadFiles\ReadFiles.csproj", "{B2B87809-C5B9-4C7D-A945-E18F2BD6D19A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|anycpu = Debug|anycpu
@@ -15,6 +17,10 @@ Global
 		{747D2677-F1CD-4310-A6D5-7B041BAF4B3C}.Debug|anycpu.Build.0 = Debug|anycpu
 		{747D2677-F1CD-4310-A6D5-7B041BAF4B3C}.Release|anycpu.ActiveCfg = Release|anycpu
 		{747D2677-F1CD-4310-A6D5-7B041BAF4B3C}.Release|anycpu.Build.0 = Release|anycpu
+		{B2B87809-C5B9-4C7D-A945-E18F2BD6D19A}.Debug|anycpu.ActiveCfg = Debug|anycpu
+		{B2B87809-C5B9-4C7D-A945-E18F2BD6D19A}.Debug|anycpu.Build.0 = Debug|anycpu
+		{B2B87809-C5B9-4C7D-A945-E18F2BD6D19A}.Release|anycpu.ActiveCfg = Release|anycpu
+		{B2B87809-C5B9-4C7D-A945-E18F2BD6D19A}.Release|anycpu.Build.0 = Release|anycpu
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

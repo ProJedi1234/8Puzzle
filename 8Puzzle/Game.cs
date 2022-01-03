@@ -14,7 +14,10 @@ namespace Puzzle
                 return true;
             }
         }
-
+        public Game()
+        {
+            this.gameState = new int[] { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
+        }
         public Game(int[] gameState)
         {
             this.gameState = gameState;

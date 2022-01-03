@@ -37,6 +37,9 @@
     <Compile Include="Models\Point.cs" />
     <Compile Include="Game.cs" />
     <Compile Include="Models\Frontier.cs" />
+    <Compile Include="Menu.cs" />
+    <Compile Include="Models\TestType.cs" />
+    <Compile Include="Models\MenuChoice.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
